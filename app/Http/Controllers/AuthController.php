@@ -11,13 +11,15 @@ class AuthController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'email' => 'required',
-            'password' => 'required'
+            'password' => 'required',
+            'role' => 'required'
         ]);
 
         $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
-            'password' => bcrypt($validatedData['password'])
+            'password' => bcrypt($validatedData['password']),
+            'role' => $validatedData['role']
         ]);
 
         $token = auth('api')->login($user);
